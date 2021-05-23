@@ -9,49 +9,48 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.dao.EmptyResultDataAccessException;
 
-import com.tnicacio.seniorhotel.entities.Garage;
+import com.tnicacio.seniorhotel.entities.Person;
 import com.tnicacio.seniorhotel.tests.Factory;
 
 @DataJpaTest
-public class GarageRepositoryTests {
+public class PersonRepositoryTests {
 	
 	@Autowired
-	private GarageRepository repository;
+	private PersonRepository repository;
 	
 	private long existingId;
 	private long nonExistingId;
-	private long countTotalGarageSpots;
+	private long countTotalPersons;
 
 	
 	@BeforeEach
 	void setUp() throws Exception {
 		existingId = 1L;
 		nonExistingId = 1000L;
-		countTotalGarageSpots = 10L;
+		countTotalPersons = 13L;
 	}
 	
 	@Test
 	public void saveShouldPersistWithAutoIncrementWhenIdIsNull() {
 		
-		Garage garage = Factory.createGarage();
-		garage.setId(null);
+		Person person = Factory.createPerson();
+		person.setId(null);
 		
-		garage = repository.save(garage);
-		Optional<Garage> result = repository.findById(garage.getId());
+		person = repository.save(person);
+		Optional<Person> result = repository.findById(person.getId());
 		
-		Assertions.assertNotNull(garage.getId());
-		Assertions.assertEquals(countTotalGarageSpots + 1, garage.getId());
+		Assertions.assertNotNull(person.getId());
+		Assertions.assertEquals(countTotalPersons + 1, person.getId());
 		Assertions.assertTrue(result.isPresent());
-		Assertions.assertSame(result.get(), garage);
+		Assertions.assertSame(result.get(), person);
 	}
 	
 	@Test
 	public void deleteShouldDeleteObjectWhenIdExists() {
 		
 		repository.deleteById(existingId);
-
-		Optional<Garage> result = repository.findById(existingId);
 		
+		Optional<Person> result = repository.findById(existingId);
 		Assertions.assertFalse(result.isPresent());;
 	}
 	
@@ -64,17 +63,17 @@ public class GarageRepositoryTests {
 	}
 	
 	@Test
-	public void findByIdShouldReturnNonEmptyOptionalGarageWhenIdExists() {
+	public void findByIdShouldReturnNonEmptyOptionalPersonWhenIdExists() {
 		
-		Optional<Garage> result = repository.findById(existingId);
+		Optional<Person> result = repository.findById(existingId);
 		
 		Assertions.assertTrue(result.isPresent());
 	}
 	
 	@Test
-	public void findByIdShouldReturnEmptyOptionalGarageWhenIdDoesNotExists() {
+	public void findByIdShouldReturnEmptyOptionalPersonWhenIdDoesNotExists() {
 		
-		Optional<Garage> result = repository.findById(nonExistingId);
+		Optional<Person> result = repository.findById(nonExistingId);
 		
 		Assertions.assertTrue(result.isEmpty());
 	}

@@ -2,7 +2,9 @@ package com.tnicacio.seniorhotel.entities;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -19,8 +21,10 @@ public class Person implements Serializable{
 	private Long id;
 	private String name;
 	private String email;
+	private Integer age;
 	
-	@OneToOne(mappedBy = "person")
+	@OneToOne(mappedBy = "person", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+	
 	private Guest guest;
 	
 	public Person() {}
@@ -53,6 +57,14 @@ public class Person implements Serializable{
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public Integer getAge() {
+		return age;
+	}
+
+	public void setAge(Integer age) {
+		this.age = age;
 	}
 
 	@Override

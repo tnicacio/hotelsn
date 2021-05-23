@@ -2,8 +2,10 @@ package com.tnicacio.seniorhotel.entities;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -23,7 +25,7 @@ public class Room implements Serializable{
 	@Column(columnDefinition = "boolean default true")
 	private Boolean isAvailable;
 	
-	@OneToOne(mappedBy = "room")
+	@OneToOne(mappedBy = "person", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
 	private Guest guest;
 	
 	public Room() {}

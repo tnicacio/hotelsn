@@ -27,7 +27,7 @@ public class RoomRepositoryTests {
 	void setUp() throws Exception {
 		existingId = 1L;
 		nonExistingId = 1000L;
-		countTotalRooms = 4L;
+		countTotalRooms = 6L;
 	}
 	
 	@Test

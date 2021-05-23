@@ -1,6 +1,7 @@
 package com.tnicacio.seniorhotel.tests;
 
 import com.tnicacio.seniorhotel.entities.Garage;
+import com.tnicacio.seniorhotel.entities.Person;
 import com.tnicacio.seniorhotel.entities.Room;
 
 public class Factory {
@@ -11,5 +12,9 @@ public class Factory {
 	
 	public static Room createRoom() {
 		return new Room(1L, "105", true);
+	}
+	
+	public static Person createPerson() {
+		return new Person(1L, "Tiago Luiz", "tiago@email.com");
 	}
 }
