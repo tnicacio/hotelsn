@@ -3,13 +3,17 @@ package com.tnicacio.seniorhotel.entities;
 import java.io.Serializable;
 import java.time.Instant;
 
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+@Entity
+@Table(name = "tb_guest")
 public class Guest implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
