@@ -82,6 +82,15 @@ public class GarageServiceTests {
 	}
 	
 	@Test
+	public void insertShouldPersistAndReturnGarageDTO() {
+		garageDto.setId(null);
+		
+		garageDto = service.insert(garageDto);
+		
+		Assertions.assertNotNull(garageDto);
+	}
+	
+	@Test
 	public void updateShouldReturnGarageDTOWhenIdExists() {
 		
 		GarageDTO result = service.update(existingId, garageDto);

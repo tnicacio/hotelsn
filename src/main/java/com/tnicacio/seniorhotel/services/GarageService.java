@@ -16,6 +16,11 @@ public class GarageService {
 	@Autowired
 	GarageRepository repository;
 
+	public GarageDTO insert(GarageDTO garageDto) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	public List<GarageDTO> findAll() {
 		List<Garage> list = repository.findAll();
 		return list.stream().map(garage -> new GarageDTO(garage)).collect(Collectors.toList());
