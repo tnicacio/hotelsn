@@ -48,7 +48,10 @@ public class GarageServiceTests {
 		Mockito.when(repository.findAll()).thenReturn(garageList);
 		
 		Mockito.when(repository.findById(existingId)).thenReturn(Optional.of(garage));
-		Mockito.when(repository.findById(nonExistingId)).thenThrow(EntityNotFoundException.class);
+		Mockito.when(repository.findById(nonExistingId)).thenReturn(Optional.empty());
+		
+		Mockito.when(repository.getOne(existingId)).thenReturn(garage);
+		Mockito.when(repository.getOne(nonExistingId)).thenThrow(EntityNotFoundException.class);
 		
 		Mockito.when(repository.save(ArgumentMatchers.any(Garage.class))).thenReturn(garage);
 		
