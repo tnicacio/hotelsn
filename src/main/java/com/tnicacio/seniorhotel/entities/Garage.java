@@ -2,14 +2,11 @@ package com.tnicacio.seniorhotel.entities;
 
 import java.io.Serializable;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -24,9 +21,6 @@ public class Garage implements Serializable{
 	
 	@Column(columnDefinition = "boolean default true")
 	private Boolean isAvailable;
-	
-	@OneToOne(mappedBy = "person", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-	private Guest guest;
 	
 	public Garage() {}
 	
@@ -58,14 +52,6 @@ public class Garage implements Serializable{
 
 	public void setIsAvailable(Boolean isAvailable) {
 		this.isAvailable = isAvailable;
-	}
-
-	public Guest getGuest() {
-		return guest;
-	}
-
-	public void setGuest(Guest guest) {
-		this.guest = guest;
 	}
 
 	@Override

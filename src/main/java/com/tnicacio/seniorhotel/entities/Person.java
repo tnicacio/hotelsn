@@ -2,13 +2,10 @@ package com.tnicacio.seniorhotel.entities;
 
 import java.io.Serializable;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -22,10 +19,7 @@ public class Person implements Serializable{
 	private String name;
 	private String email;
 	private Integer age;
-	
-	@OneToOne(mappedBy = "person", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-	private Guest guest;
-	
+
 	public Person() {}
 
 	public Person(Long id, String name, String email) {

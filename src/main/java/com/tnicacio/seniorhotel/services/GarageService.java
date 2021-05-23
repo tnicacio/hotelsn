@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.tnicacio.seniorhotel.dto.GarageDTO;
 import com.tnicacio.seniorhotel.entities.Garage;
@@ -16,8 +17,11 @@ public class GarageService {
 	@Autowired
 	GarageRepository repository;
 
+	@Transactional
 	public GarageDTO insert(GarageDTO garageDto) {
-		// TODO Auto-generated method stub
+		Garage entity = new Garage();
+		entity.setName(garageDto.getName());
+		entity.setIsAvailable(garageDto.getIsAvailable());
 		return null;
 	}
 

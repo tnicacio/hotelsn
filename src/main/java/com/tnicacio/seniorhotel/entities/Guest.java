@@ -5,10 +5,10 @@ import java.time.Instant;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -28,18 +28,15 @@ public class Guest implements Serializable{
 	@Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
 	private Instant endDate;
 	
-	@OneToOne
-	@JoinColumn(name = "person_id")
+	@OneToOne(fetch = FetchType.LAZY)
 	@NotNull
 	private Person person;
 	
-	@OneToOne
-	@JoinColumn(name = "room_id")
+	@OneToOne(fetch = FetchType.LAZY)
 	@NotNull
 	private Room room;
 	
-	@OneToOne
-	@JoinColumn(name = "garage_id")
+	@OneToOne(fetch = FetchType.LAZY)
 	private Garage garage;
 	
 	public Guest() {}
