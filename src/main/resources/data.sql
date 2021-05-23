@@ -15,6 +15,8 @@ INSERT INTO tb_room (name) VALUES ('103');
 INSERT INTO tb_room (name) VALUES ('104');
 INSERT INTO tb_room (name) VALUES ('201');
 INSERT INTO tb_room (name) VALUES ('202');
+INSERT INTO tb_room (name) VALUES ('301');
+INSERT INTO tb_room (name) VALUES ('302');
 
 INSERT INTO tb_person (name, email, age) VALUES ('Maria Joana', 'maria@email.com', 24);
 INSERT INTO tb_person (name, email, age) VALUES ('Pedro Paulo', 'pedrop@email.com', 26);
