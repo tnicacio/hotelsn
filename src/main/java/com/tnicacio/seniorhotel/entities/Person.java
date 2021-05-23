@@ -24,7 +24,6 @@ public class Person implements Serializable{
 	private Integer age;
 	
 	@OneToOne(mappedBy = "person", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-	
 	private Guest guest;
 	
 	public Person() {}
