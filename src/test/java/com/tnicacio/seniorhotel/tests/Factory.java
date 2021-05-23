@@ -1,6 +1,7 @@
 package com.tnicacio.seniorhotel.tests;
 
 import com.tnicacio.seniorhotel.dto.GarageDTO;
+import com.tnicacio.seniorhotel.dto.PersonDTO;
 import com.tnicacio.seniorhotel.dto.RoomDTO;
 import com.tnicacio.seniorhotel.entities.Garage;
 import com.tnicacio.seniorhotel.entities.Person;
@@ -17,7 +18,7 @@ public class Factory {
 	}
 	
 	public static Person createPerson() {
-		return new Person(1L, "Tiago Luiz", "tiago@email.com");
+		return new Person(1L, "Tiago Luiz", "tiago@email.com", 29);
 	}
 
 	public static GarageDTO createGarageDto() {
@@ -26,5 +27,9 @@ public class Factory {
 
 	public static RoomDTO createRoomDto() {
 		return new RoomDTO(createRoom());
+	}
+
+	public static PersonDTO createPersonDto() {
+		return new PersonDTO(createPerson());
 	}
 }

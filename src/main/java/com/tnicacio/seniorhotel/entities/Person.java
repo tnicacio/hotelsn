@@ -22,10 +22,11 @@ public class Person implements Serializable{
 
 	public Person() {}
 
-	public Person(Long id, String name, String email) {
+	public Person(Long id, String name, String email, Integer age) {
 		this.id = id;
 		this.name = name;
 		this.email = email;
+		this.age = age;
 	}
 
 	public Long getId() {
