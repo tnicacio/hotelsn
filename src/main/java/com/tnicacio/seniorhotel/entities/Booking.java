@@ -14,8 +14,8 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "tb_guest")
-public class Guest implements Serializable{
+@Table(name = "tb_booking")
+public class Booking implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	@Id
@@ -28,6 +28,12 @@ public class Guest implements Serializable{
 	@Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
 	private Instant endDate;
 	
+	@Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
+	private Instant dtCheckin;
+	
+	@Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
+	private Instant dtCheckout;
+	
 	@OneToOne(fetch = FetchType.LAZY)
 	@NotNull
 	private Person person;
@@ -39,12 +45,15 @@ public class Guest implements Serializable{
 	@OneToOne(fetch = FetchType.LAZY)
 	private Garage garage;
 	
-	public Guest() {}
+	public Booking() {}
 
-	public Guest(Long id, Instant startDate, Instant endDate, Person person, Room room, Garage garage) {
+	public Booking(Long id, Instant startDate, Instant endDate, Instant dtCheckin, Instant dtCheckout,
+			@NotNull Person person, @NotNull Room room, Garage garage) {
 		this.id = id;
 		this.startDate = startDate;
 		this.endDate = endDate;
+		this.dtCheckin = dtCheckin;
+		this.dtCheckout = dtCheckout;
 		this.person = person;
 		this.room = room;
 		this.garage = garage;
@@ -98,5 +107,20 @@ public class Guest implements Serializable{
 		this.garage = garage;
 	}
 
+	public Instant getDtCheckin() {
+		return dtCheckin;
+	}
+
+	public void setDtCheckin(Instant dtCheckin) {
+		this.dtCheckin = dtCheckin;
+	}
+
+	public Instant getDtCheckout() {
+		return dtCheckout;
+	}
+
+	public void setDtCheckout(Instant dtCheckout) {
+		this.dtCheckout = dtCheckout;
+	}
 	
 }
