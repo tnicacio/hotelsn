@@ -11,8 +11,6 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import org.springframework.hateoas.RepresentationModel;
-
 @Entity
 @Table(name = "tb_person")
 public class Person implements Serializable {
