@@ -17,6 +17,9 @@ sendo R$15,00 de segunda à sexta e R$20,00 nos finais de semana;
 - Permitir consultar ex-hóspedes;
 - Vamos usar Postman para testar sua aplicação.
 
+# Modelo Lógico
+![modelo](https://user-images.githubusercontent.com/50798315/119744081-9f616f00-be61-11eb-9222-b50e6b2b08a5.png)
+
 # Rotas da Aplicação
 
 Para as entidades Room, Garage, Person e Bookings foram feitas inicialmente as 5 rotas básicas do CRUD:
