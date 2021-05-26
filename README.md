@@ -1,7 +1,9 @@
 # :hotel: Hotel SN
-
-> Backend para realização de cadastro de hóspedes e check in.
->Implantado em: https://hotelsn.herokuapp.com/
+> Backend para realização de cadastro de hóspedes e check in. <br/>
+> Este projeto foi desenvolvido com foco no TDD. Foram desenvolvidos testes unitários e de integração para as camadas repository, service e controller.
+> Além disso, também foram implementados testes para validar as regras de negócio bem como os cálculos dos preços das hospedagens. No total, há atualmente 125 testes implementados.
+>
+> Implantado em: https://hotelsn.herokuapp.com/ <br/>
 
 # Regras de negócio
 - Uma diária no hotel de segunda à sexta custa R$120,00;
