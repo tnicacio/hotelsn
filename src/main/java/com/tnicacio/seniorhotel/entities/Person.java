@@ -1,16 +1,21 @@
 package com.tnicacio.seniorhotel.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.springframework.hateoas.RepresentationModel;
 
 @Entity
 @Table(name = "tb_person")
-public class Person implements Serializable{
+public class Person implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
@@ -19,6 +24,9 @@ public class Person implements Serializable{
 	private String name;
 	private String email;
 	private Integer age;
+	
+	@OneToMany(mappedBy = "person")
+	private List<Booking> bookings = new ArrayList<>();
 
 	public Person() {}
 
@@ -59,6 +67,10 @@ public class Person implements Serializable{
 
 	public void setAge(Integer age) {
 		this.age = age;
+	}
+	
+	public List<Booking> getBookings() {
+		return bookings;
 	}
 
 	@Override

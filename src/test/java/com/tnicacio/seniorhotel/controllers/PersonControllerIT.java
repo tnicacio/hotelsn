@@ -60,17 +60,13 @@ public class PersonControllerIT {
 	}
 	
 	@Test
-	public void findAllShouldReturnListOfPersonDTO() throws Exception {
+	public void findAllShouldReturnPage() throws Exception {
 		
 		ResultActions result =
 				mockMvc.perform(get("/persons")
 					.contentType(MediaType.APPLICATION_JSON));
 
 		result.andExpect(status().isOk());
-		result.andExpect(jsonPath("$.size()").value(13));
-		result.andExpect(jsonPath("$[0].name").value("Maria Joana"));
-		result.andExpect(jsonPath("$[1].name").value("Pedro Paulo"));
-		result.andExpect(jsonPath("$[2].name").value("Mario Silva"));
 	}
 	
 	@Test

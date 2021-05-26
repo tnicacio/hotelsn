@@ -13,10 +13,16 @@ import org.mockito.ArgumentMatchers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.tnicacio.seniorhotel.dto.PersonDTO;
+import com.tnicacio.seniorhotel.entities.Booking;
 import com.tnicacio.seniorhotel.entities.Person;
+import com.tnicacio.seniorhotel.repositories.BookingRepository;
 import com.tnicacio.seniorhotel.repositories.PersonRepository;
 import com.tnicacio.seniorhotel.services.exceptions.ResourceNotFoundException;
 import com.tnicacio.seniorhotel.tests.Factory;
@@ -30,11 +36,15 @@ public class PersonServiceTests {
 	@Mock
 	private PersonRepository repository;
 	
+	@Mock
+	private BookingRepository bookingRepository;
+	
 	private long existingId;
 	private long nonExistingId;
 	private Person person;
+	private Booking booking;
 	private PersonDTO personDto;
-	private List<Person> personList;
+	private PageImpl<Person> personPage;
 
 	
 	@BeforeEach
@@ -42,16 +52,20 @@ public class PersonServiceTests {
 		existingId = 1L;
 		nonExistingId = 2L;
 		person = Factory.createPerson();
+		booking = Factory.createBooking();
 		personDto = Factory.createPersonDto();
-		personList = List.of(person);
+		personPage = new PageImpl<>(List.of(person));
 		
-		Mockito.when(repository.findAll()).thenReturn(personList);
+		Mockito.when(repository.findAll(ArgumentMatchers.any(Pageable.class))).thenReturn(personPage);
 		
 		Mockito.when(repository.findById(existingId)).thenReturn(Optional.of(person));
 		Mockito.when(repository.findById(nonExistingId)).thenReturn(Optional.empty());
 		
 		Mockito.when(repository.getOne(existingId)).thenReturn(person);
 		Mockito.when(repository.getOne(nonExistingId)).thenThrow(EntityNotFoundException.class);
+		
+		Mockito.when(bookingRepository.getOne(existingId)).thenReturn(booking);
+		Mockito.when(bookingRepository.getOne(nonExistingId)).thenThrow(EntityNotFoundException.class);
 		
 		Mockito.when(repository.save(ArgumentMatchers.any(Person.class))).thenReturn(person);
 		
@@ -60,11 +74,12 @@ public class PersonServiceTests {
 	}
 	
 	@Test
-	public void findAllShouldReturnListOfPersonDTO() {
-		List<PersonDTO> result = service.findAll();
+	public void findAllShouldReturnPageOfPersonDTO() {
+		Pageable pageable = PageRequest.of(0, 10);
+		Page<PersonDTO> result = service.findAll(pageable);
 		Assertions.assertNotNull(result);
 		
-		Mockito.verify(repository, Mockito.times(1)).findAll();
+		Mockito.verify(repository, Mockito.times(1)).findAll(pageable);
 	}
 	
 	@Test

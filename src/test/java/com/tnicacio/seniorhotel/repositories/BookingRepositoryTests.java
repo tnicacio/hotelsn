@@ -2,8 +2,6 @@ package com.tnicacio.seniorhotel.repositories;
 
 import java.util.Optional;
 
-import javax.validation.ConstraintViolationException;
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -46,44 +44,7 @@ public class BookingRepositoryTests {
 		Assertions.assertTrue(result.isPresent());
 		Assertions.assertSame(result.get(), booking);
 	}
-	
-	@Test
-	public void saveShouldThrowConstraintViolationExceptionWhenIdAndPersonAreNull() {
-		
-		Assertions.assertThrows(ConstraintViolationException.class, () -> {
-			Booking booking = Factory.createBooking();
-			booking.setId(null);
-			booking.setPerson(null);
-			
-			repository.save(booking);
-		});
-	}
-	
-	@Test
-	public void saveShouldThrowConstraintViolationExceptionWhenIdAndRoomAreNull() {
-		
-		Assertions.assertThrows(ConstraintViolationException.class, () -> {
-			Booking booking = Factory.createBooking();
-			booking.setId(null);
-			booking.setRoom(null);
-			
-			repository.save(booking);
-		});
-	}
 
-	@Test
-	public void saveShouldThrowConstraintViolationExceptionWhenIdAndRoomAndPersonAreNull() {
-		
-		Assertions.assertThrows(ConstraintViolationException.class, () -> {
-			Booking booking = Factory.createBooking();
-			booking.setId(null);
-			booking.setRoom(null);
-			booking.setPerson(null);
-			
-			repository.save(booking);
-		});
-	}
-	
 	@Test
 	public void deleteShouldDeleteObjectWhenIdExists() {
 		

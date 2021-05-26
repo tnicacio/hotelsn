@@ -1,12 +1,12 @@
 package com.tnicacio.seniorhotel.services;
 
-import java.util.List;
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.tnicacio.seniorhotel.dto.PersonDTO;
@@ -52,10 +52,13 @@ public class PersonServiceIT {
 
 	
 	@Test
-	public void findAllShouldReturnListOfPersonDTO () {
-		List<PersonDTO> result = service.findAll();
+	public void findAllShouldReturnPageWhenPageZeroAndSizeEqualsToTen() {
+		PageRequest pageRequest = PageRequest.of(0, 10);
+		Page<PersonDTO> result = service.findAll(pageRequest);
 		
 		Assertions.assertFalse(result.isEmpty());
-		Assertions.assertEquals(countTotalPersons, result.size());
+		Assertions.assertEquals(0, result.getNumber());
+		Assertions.assertEquals(10 , result.getSize());
+		Assertions.assertEquals(countTotalPersons, result.getTotalElements());
 	}
 }

@@ -21,7 +21,13 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.tnicacio.seniorhotel.dto.BookingDTO;
 import com.tnicacio.seniorhotel.entities.Booking;
+import com.tnicacio.seniorhotel.entities.Garage;
+import com.tnicacio.seniorhotel.entities.Person;
+import com.tnicacio.seniorhotel.entities.Room;
 import com.tnicacio.seniorhotel.repositories.BookingRepository;
+import com.tnicacio.seniorhotel.repositories.GarageRepository;
+import com.tnicacio.seniorhotel.repositories.PersonRepository;
+import com.tnicacio.seniorhotel.repositories.RoomRepository;
 import com.tnicacio.seniorhotel.services.exceptions.ResourceNotFoundException;
 import com.tnicacio.seniorhotel.tests.Factory;
 
@@ -33,9 +39,18 @@ public class BookingServiceTests {
 	
 	@Mock
 	private BookingRepository repository;
+	@Mock
+	private PersonRepository personRepository;
+	@Mock
+	private RoomRepository roomRepository;
+	@Mock
+	private GarageRepository garageRepository;
 	
 	private long existingId;
 	private long nonExistingId;
+	private Person person;
+	private Room room;
+	private Garage garage;
 	private Booking booking;
 	private BookingDTO bookingDto;
 	private PageImpl<Booking> bookinPage;
@@ -45,6 +60,9 @@ public class BookingServiceTests {
 	void setUp() throws Exception {
 		existingId = 1L;
 		nonExistingId = 2L;
+		person = Factory.createPerson();
+		room = Factory.createRoom();
+		garage = Factory.createGarage();
 		booking = Factory.createBooking();
 		bookingDto = Factory.createBookingDto();
 		bookinPage = new PageImpl<>(List.of(booking));
@@ -56,6 +74,15 @@ public class BookingServiceTests {
 		
 		Mockito.when(repository.getOne(existingId)).thenReturn(booking);
 		Mockito.when(repository.getOne(nonExistingId)).thenThrow(EntityNotFoundException.class);
+
+		Mockito.when(personRepository.getOne(existingId)).thenReturn(person);
+		Mockito.when(personRepository.getOne(nonExistingId)).thenThrow(EntityNotFoundException.class);
+
+		Mockito.when(roomRepository.getOne(existingId)).thenReturn(room);
+		Mockito.when(roomRepository.getOne(nonExistingId)).thenThrow(EntityNotFoundException.class);
+		
+		Mockito.when(garageRepository.getOne(existingId)).thenReturn(garage);
+		Mockito.when(garageRepository.getOne(nonExistingId)).thenThrow(EntityNotFoundException.class);
 		
 		Mockito.when(repository.save(ArgumentMatchers.any(Booking.class))).thenReturn(booking);
 		
@@ -96,16 +123,6 @@ public class BookingServiceTests {
 		bookingDto = service.insert(bookingDto);
 		
 		Assertions.assertNotNull(bookingDto);
-	}
-	
-	@Test
-	public void insertShouldThrowDatabaseExceptionWhenPersonOrRoomAreNull() {
-		Assertions.assertDoesNotThrow(() -> {
-			
-			bookingDto.setPersonId(null);
-			bookingDto.setRoomId(null);
-			service.insert(bookingDto);
-		});
 	}
 	
 	@Test

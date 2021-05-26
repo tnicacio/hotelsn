@@ -19,6 +19,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
@@ -46,7 +48,7 @@ public class PersonControllerTests {
 	private Long nonExistingId;
 	private Long dependentId;
 	private PersonDTO personDTO;
-	private List<PersonDTO> personDTOList;
+	private PageImpl<PersonDTO> page;
 	
 	@BeforeEach
 	void setUpd() throws Exception {
@@ -55,9 +57,9 @@ public class PersonControllerTests {
 		dependentId = 3L;
 		
 		personDTO = Factory.createPersonDto();
-		personDTOList = List.of(personDTO);
+		page = new PageImpl<>(List.of(personDTO));
 		
-		when(service.findAll()).thenReturn(personDTOList);
+		when(service.findAll(any(Pageable.class))).thenReturn(page);
 
 		when(service.findById(existingId)).thenReturn(personDTO);
 		when(service.findById(nonExistingId)).thenThrow(ResourceNotFoundException.class);

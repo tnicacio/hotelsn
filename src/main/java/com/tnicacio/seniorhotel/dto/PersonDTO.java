@@ -1,16 +1,23 @@
 package com.tnicacio.seniorhotel.dto;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
+import org.springframework.hateoas.RepresentationModel;
+
+import com.tnicacio.seniorhotel.entities.Booking;
 import com.tnicacio.seniorhotel.entities.Person;
 
-public class PersonDTO implements Serializable {
+public class PersonDTO extends RepresentationModel<PersonDTO> implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private Long id;
 	private String name;
 	private String email;
 	private Integer age;
+	
+	private List<BookingDTO> bookings = new ArrayList<>();
 	
 	public PersonDTO() {}
 
@@ -26,6 +33,11 @@ public class PersonDTO implements Serializable {
 		this.name = entity.getName();
 		this.email = entity.getEmail();
 		this.age = entity.getAge();
+	}
+	
+	public PersonDTO(Person entity, List<Booking> bookings) {
+		this(entity);
+		bookings.forEach(booking -> getBookings().add(new BookingDTO(booking)));
 	}
 
 	public Long getId() {
@@ -58,6 +70,10 @@ public class PersonDTO implements Serializable {
 
 	public void setAge(Integer age) {
 		this.age = age;
+	}
+	
+	public List<BookingDTO> getBookings() {
+		return bookings;
 	}
 	
 }

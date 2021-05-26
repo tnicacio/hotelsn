@@ -29,13 +29,15 @@ public class Factory {
 	public static Booking createBooking() {
 		return new Booking(
 				1L, 
-				LocalDateTime.of(2021, 5, 19, 9, 30).toInstant(ZoneOffset.UTC),
-				LocalDateTime.of(2021, 5, 24, 16, 30).toInstant(ZoneOffset.UTC),
-				LocalDateTime.of(2021, 5, 24, 10, 20).toInstant(ZoneOffset.UTC),
+				LocalDateTime.of(2021, 5, 19, 12, 30).toInstant(ZoneOffset.UTC),
+				LocalDateTime.of(2021, 5, 24, 19, 30).toInstant(ZoneOffset.UTC),
+				LocalDateTime.of(2021, 5, 19, 13, 20).toInstant(ZoneOffset.UTC),
 				null,
 				createPerson(),
 				createRoom(),
-				createGarage());
+				createGarage(),
+				780.0,
+				0.0);
 	}
 
 	public static GarageDTO createGarageDto() {
