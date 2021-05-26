@@ -19,7 +19,28 @@ sendo R$15,00 de segunda à sexta e R$20,00 nos finais de semana;
 
 # Rotas da Aplicação
 
-## Room
+Para as entidades Room, Garage, Person e Bookings foram feitas inicialmente as 5 rotas básicas do CRUD:
+- insert
+- findAll
+- findById
+- update
+- delete
+
+Após isto, foram implementadas rotas adicionais, tais como:
+- [GET] ```/persons/exGuests``` para retornar ex-hóspedes;
+- [GET] ```/persons/currentGuests``` para retornar os hóspedes atuais
+- [PATCH] ```/bookings/:id/checkin ``` para realizar o check-in da reserva identificada pelo id
+- [PATCH] ```/bookings/:id/checkin ``` para realizar o check-out da reserva identificada pelo id
+- [GET] ```/bookings/confirmed ``` para retornar as reservas em que foi realizado o check-in.
+- [GET] ```/bookings/completed ``` para retornar as reservas em que o check-out já foi feito.
+- [GET] ```/bookings/current ``` para retornar as reservas em que foi realizado o check-in mas não o check-out.
+- [GET] ```/bookings/open ``` para retornar as reservas que estão aguardando pelo check-in.
+
+Vale salientar que como validação para o check-out, foi implementado para ele só poder ser feito caso o check-in já tenha sido realizado.
+
+Abaixo estão as descrições de todas as rotas:
+
+## :bed: Room
 
 ### [GET] /rooms
 Retorna todos os quartos do hotel.
@@ -39,7 +60,7 @@ Atualiza as informações do quarto identificado pelo id.
 ### [DELETE] /roms/:id
 Remove o quarto do sistema, quando este não possui dependência com outros registros.
 
-## Garage
+## :car: Garage
 
 ### [GET] /garages
 Retorna todas as vagas de garagens do hotel.
@@ -59,7 +80,7 @@ Atualiza as informações da garagem identificada pelo id.
 ### [DELETE] /garages/:id
 Remove a garagem do sistema, quando esta não possui dependência com outros registros.
 
-## Person
+## :curly_haired_woman: Person
 
 ### [GET] /persons
 Busca paginada que retorna todas as pessoas cadastradas no hotel.
@@ -79,8 +100,12 @@ Retorna a pessoa identificada pelo id.
 Atualiza as informações da pessoa identificada pelo id.
 ### [DELETE] /persons/:id
 Remove a pessoa do sistema, quando esta não possui dependência com outros registros.
+### [GET] /persons/exGuests
+Retorna uma lista de pessoas que já foram hóspedes do hotel.
+### [GET] /persons/currentGuests
+Retorna uma lista de pessoas que estão se hospedando atualmente no hotel.
 
-## Bookings
+## :bookmark: Bookings
 
 ### [GET] /bookings
 Busca paginada que retorna todas as reservas do hotel.<br/>
@@ -138,11 +163,11 @@ Realiza o check-in na reserva identificada.
 ### [PATCH] /bookings/:id/checkout
 Realiza o check-out na reserva identificada.
 
-# Tecnologias Utilizadas
+# :abacus: Tecnologias Utilizadas
 - SpringBoot, Hibernate, JPA, Maven
 - Heroku, para implantação na nuvem
 - Testes unitários e de Integração com JUnit 5 e Mockito, totalizando 125 testes para todas as camadas.
 
-# Metodologias Aplicadas
+# :gear: Metodologias Aplicadas
 - Test Driven Development (TDD)
 - Domain Driven Design (DDD)
