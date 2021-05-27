@@ -1,3 +1,4 @@
+
 # :hotel: Hotel SN
 > Backend para realização de cadastro de hóspedes e check in. <br/>
 > Este projeto foi desenvolvido com foco no TDD. Foram desenvolvidos testes unitários e de integração para as camadas repository, service e controller.
@@ -20,7 +21,7 @@ sendo R$15,00 de segunda à sexta e R$20,00 nos finais de semana;
 - Vamos usar Postman para testar sua aplicação.
 
 # Modelo Lógico
-![modelo](https://user-images.githubusercontent.com/50798315/119744081-9f616f00-be61-11eb-9222-b50e6b2b08a5.png)
+![modelo](https://user-images.githubusercontent.com/50798315/119755716-d68f4a80-be78-11eb-8276-f4f5c00fc1f5.png)
 
 # Rotas da Aplicação
 
