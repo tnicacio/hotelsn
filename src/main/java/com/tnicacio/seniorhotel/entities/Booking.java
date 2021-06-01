@@ -1,15 +1,7 @@
 package com.tnicacio.seniorhotel.entities;
 
 import java.io.Serializable;
-import java.time.DayOfWeek;
 import java.time.Instant;
-import java.time.OffsetTime;
-import java.time.ZoneOffset;
-import java.time.temporal.ChronoUnit;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.function.Predicate;
-import java.util.stream.Stream;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -18,21 +10,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.PrePersist;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "tb_booking")
 public class Booking implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
-	private static final double DAILY_PRICE_ON_WEEKDAYS = 120.0;
-	private static final double DAILY_PRICE_ON_WEEKENDS = 150.0;
-	private static final double GARAGE_PRICE_ON_WEEKDAYS = 15.0;
-	private static final double GARAGE_PRICE_ON_WEEKENDS = 20.0;
-	private static final ZoneOffset ZONE_OFFSET = ZoneOffset.ofHours(-3);
-	private static final OffsetTime TIME_LIMIT_TO_CHECKOUT = OffsetTime.of(16, 30, 0, 0, ZONE_OFFSET);
-	
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -156,59 +139,6 @@ public class Booking implements Serializable {
 
 	public void setRealPrice(Double realPrice) {
 		this.realPrice = realPrice;
-	}
-
-	@PrePersist
-	public void prePersist() {
-		setExpectedPrice(calculatePriceBetween(startDate, endDate));
-	}
-	
-	private boolean passedTimeLimitOnDay(Instant day) {
-		OffsetTime timeOfTheDay = OffsetTime.ofInstant(day, ZONE_OFFSET);
-		return timeOfTheDay.isAfter(TIME_LIMIT_TO_CHECKOUT);
-	}
-	
-	private Map<String, Long> countBusinessAndWeekendDaysBetween(Instant startDate, Instant endDate){        
-        long daysBetweenWithLastDayIncluded = ChronoUnit.DAYS.between(startDate, endDate) + 1;
-        
-        if (passedTimeLimitOnDay(endDate)) {
-        	daysBetweenWithLastDayIncluded += 1;
-        }
-        
-        Predicate<Instant> isWeekend = date -> {
-        	DayOfWeek dayOfWeek = date.atOffset(ZONE_OFFSET).getDayOfWeek();
-        	return dayOfWeek == DayOfWeek.SATURDAY || dayOfWeek == DayOfWeek.SUNDAY;
-        };
- 
-        long businessDays = Stream.iterate(startDate, date -> date.plus(1, ChronoUnit.DAYS))
-        		.limit(daysBetweenWithLastDayIncluded)
-                .filter(isWeekend.negate()).count();
-        long weekendDays = daysBetweenWithLastDayIncluded - businessDays;
-        
-        Map<String, Long> mapWithReturnData = new HashMap<>();
-        mapWithReturnData.put("BUSINESS_DAYS", businessDays);
-        mapWithReturnData.put("WEEKEND_DAYS", weekendDays);
-        return mapWithReturnData;
-    }
-	
-	public Double calculatePriceBetween(Instant startDate, Instant endDate) {
-		if (startDate == null || endDate == null) {
-			return null;
-		}
-		
-		double expectedPrice = 0.0;
-		boolean hasGarage = garage != null;
-		
-		Map<String, Long> businessAndWeekendDays = countBusinessAndWeekendDaysBetween(startDate, endDate);
-		expectedPrice += businessAndWeekendDays.get("BUSINESS_DAYS") * DAILY_PRICE_ON_WEEKDAYS;
-		expectedPrice += businessAndWeekendDays.get("WEEKEND_DAYS") * DAILY_PRICE_ON_WEEKENDS;
-		
-		if (hasGarage) {
-			expectedPrice += businessAndWeekendDays.get("BUSINESS_DAYS") * GARAGE_PRICE_ON_WEEKDAYS;
-			expectedPrice += businessAndWeekendDays.get("WEEKEND_DAYS") * GARAGE_PRICE_ON_WEEKENDS;
-		}
-		
-		return expectedPrice;
 	}
 	
 }

@@ -1,5 +1,6 @@
 package com.tnicacio.seniorhotel.services;
 
+import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 
@@ -115,6 +116,7 @@ public class BookingServiceTests {
 		});
 		Mockito.verify(repository, Mockito.times(1)).findById(nonExistingId);
 	}
+
 	
 	@Test
 	public void insertShouldPersistAndReturnBookingDTO() {
@@ -123,6 +125,27 @@ public class BookingServiceTests {
 		bookingDto = service.insert(bookingDto);
 		
 		Assertions.assertNotNull(bookingDto);
+	}
+	
+	@Test
+	public void insertShouldPersistExpectedPriceWhenIdIsNullAndStartDateAndEndDateAreNotNull() {
+		bookingDto.setId(null);
+		bookingDto.setExpectedPrice(null);
+		
+		bookingDto = service.insert(bookingDto);
+		
+		double expectedPrice = 780.0;
+		Assertions.assertEquals(expectedPrice, bookingDto.getExpectedPrice());
+	}
+	
+	@Test
+	public void checkOutShouldCalculateAndSaveRealPrice() {
+		
+		bookingDto = service.checkOut(bookingDto.getId());
+		
+		Instant dtCheckout = bookingDto.getDtCheckout();
+		
+		Assertions.assertNotNull(dtCheckout);
 	}
 	
 	@Test
