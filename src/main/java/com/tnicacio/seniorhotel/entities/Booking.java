@@ -12,6 +12,17 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
 @Table(name = "tb_booking")
 public class Booking implements Serializable {
@@ -19,6 +30,7 @@ public class Booking implements Serializable {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@EqualsAndHashCode.Include
 	private Long id;
 	
 	@Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
@@ -44,101 +56,5 @@ public class Booking implements Serializable {
 	
 	private Double expectedPrice;
 	private Double realPrice;
-	
-	public Booking() {}
-
-	public Booking(Long id, Instant startDate,Instant endDate, Instant dtCheckin, Instant dtCheckout,
-			 Person person, Room room, Garage garage, Double expectedPrice, Double realPrice) {
-		this.id = id;
-		this.startDate = startDate;
-		this.endDate = endDate;
-		this.dtCheckin = dtCheckin;
-		this.dtCheckout = dtCheckout;
-		this.person = person;
-		this.room = room;
-		this.garage = garage;
-		this.expectedPrice = expectedPrice;
-		this.realPrice = realPrice;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public Instant getStartDate() {
-		return startDate;
-	}
-
-	public void setStartDate(Instant startDate) {
-		this.startDate = startDate;
-	}
-
-	public Instant getEndDate() {
-		return endDate;
-	}
-
-	public void setEndDate(Instant endDate) {
-		this.endDate = endDate;
-	}
-
-	public Person getPerson() {
-		return person;
-	}
-
-	public void setPerson(Person person) {
-		this.person = person;
-	}
-
-	public Room getRoom() {
-		return room;
-	}
-
-	public void setRoom(Room room) {
-		this.room = room;
-	}
-
-	public Garage getGarage() {
-		return garage;
-	}
-
-	public void setGarage(Garage garage) {
-		this.garage = garage;
-	}
-
-	public Instant getDtCheckin() {
-		return dtCheckin;
-	}
-
-	public void setDtCheckin(Instant dtCheckin) {
-		this.dtCheckin = dtCheckin;
-	}
-
-	public Instant getDtCheckout() {
-		return dtCheckout;
-	}
-
-	public void setDtCheckout(Instant dtCheckout) {
-		this.dtCheckout = dtCheckout;
-	}
-	
-	public Double getExpectedPrice() {
-		return expectedPrice;
-	}
-
-	public void setExpectedPrice(Double expectedPrice) {
-		this.expectedPrice = expectedPrice;
-	}
-
-	public Double getRealPrice() {
-		return realPrice;
-	}
-
-	public void setRealPrice(Double realPrice) {
-		this.realPrice = realPrice;
-	}
 	
 }
